@@ -17,7 +17,7 @@ root.render(
     <HelmetProvider>
       <ReduxProvider store={store}>
       <SettingsProvider>
-        <BrowserRouter>
+        <BrowserRouter basename="/demo">
           <App />
         </BrowserRouter>
       </SettingsProvider>

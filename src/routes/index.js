@@ -10,6 +10,9 @@ import { DEFAULT_PATH } from "../config";
 import LoadingScreen from "../components/LoadingScreen";
 //import Settings from "../pages/dashboard/Settings";
 
+// import Home from '../pages/dashboard/Home';
+// import Result from '../pages/dashboard/Result'
+
 const Loadable = (Component) => (props) => {
   return (
     <Suspense fallback={<LoadingScreen />}> 
@@ -35,7 +38,9 @@ export default function Router() {
       element: <DashboardLayout />,
       children: [
         { element: <Navigate to={DEFAULT_PATH} replace />, index: true },
-        { path: "app", element: <GeneralApp /> },
+        { path: "index", element: <Home />},
+        { path: "chat", element: <GeneralApp /> },
+        { path: "result", element: <Result /> },
         { path: "settings", element: <Settings /> },
         { path: "group", element: <GroupPage /> },
         { path: "call", element: <CallPage /> },
@@ -47,6 +52,14 @@ export default function Router() {
     { path: "*", element: <Navigate to="/404" replace /> },
   ]);
 }
+
+const Home = Loadable(
+  lazy(() => import("../pages/dashboard/Home")),
+);
+
+const Result = Loadable(
+  lazy(() => import("../pages/dashboard/Result")),
+);
 
 const GeneralApp = Loadable(
   lazy(() => import("../pages/dashboard/GeneralApp")),

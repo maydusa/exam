@@ -5,14 +5,12 @@ import { rootPersistConfig, rootReducer } from './rootReducer';
 
 // create store
 const store = configureStore({
-    reducer: persistReducer(rootPersistConfig, rootReducer),// we need to pass all the combine reducers to persistReducer
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-        serializableCheck: false,
-        immutableCheck: false
-    }) // function that can run in between writing and reading from our store
+    reducer: rootReducer,// we need to pass all the combine reducers to persistReducer
+    // middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    //     serializableCheck: false,
+    //     immutableCheck: false
+    // }) // function that can run in between writing and reading from our store
 });
-
-const persistor = persistStore(store);
 
 const {dispatch} = store;
 
@@ -20,4 +18,4 @@ const useSelector = useAppSelector;
 
 const useDispatch = () => useAppDispatch();
 
-export {store, persistor, dispatch, useSelector, useDispatch}
+export {store, dispatch, useSelector, useDispatch}

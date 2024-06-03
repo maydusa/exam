@@ -1,0 +1,32 @@
+.audio-wave {
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+hr {
+  background-color: #7635dc;
+  width: 2px;
+  height: 5px;
+  margin: 0 3px;
+  display: inline-block;
+  border: none;
+}
+
+.animate {
+  animation: note 180ms ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes note {
+  0% {
+    transform: scaleY(1);
+  }
+
+  100% {
+    transform: scaleY(var(--scale));
+  }
+}

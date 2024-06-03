@@ -16,7 +16,7 @@ const rootPersistConfig = {
 
 //create combine reducer
 const rootReducer = combineReducers({
-    app: appReducer,
+    app: appReducer
 });
 
 export {rootPersistConfig, rootReducer}

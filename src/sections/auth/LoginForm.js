@@ -6,21 +6,20 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Alert, Button, IconButton, InputAdornment, Link, Stack } from '@mui/material';
 import { RHFTextField } from '../../components/hook-form';
 import { Eye, EyeSlash } from 'phosphor-react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
-
-  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate()
 
   //validation rules 
   const loginSchema = Yup.object().shape({
-    email:Yup.string().required('Email is required').email('Email must be a valid email address'),
-    password:Yup.string().required('Password is required')
+    // user_id: Yup.string().required('User id 不能为空').matches(/^[0-9a-zA-Z]*$/, 'User id 必须为字母和数字的组合'),
+    user_name:Yup.string().required('User name 不能为空')
   });
 
   const defaultValues = {
-    email:'dulanjali@gmail.com',
-    password:'dula@123'
+    // user_id:'',
+    user_name:''
   };
 
   const methods = useForm({
@@ -32,16 +31,19 @@ const LoginForm = () => {
    = methods;
 
    const onSubmit = async (data) =>{
-        try {
-            //submit data to backend
-        } catch (error) {
-            console.log(error);
-            reset();
-            setError('afterSubmit',{
-                ...error,
-                message: error.message
-            })
-        }
+    // localStorage.setItem('user_id', data.user_id + Date.now())
+    localStorage.setItem('user_name', data.user_name)
+    navigate('/index')
+        // try {
+        //     //submit data to backend
+        // } catch (error) {
+        //     console.log(error);
+        //     reset();
+        //     setError('afterSubmit',{
+        //         ...error,
+        //         message: error.message
+        //     })
+        // }
    }
 
   return (
@@ -49,23 +51,14 @@ const LoginForm = () => {
         <Stack spacing={3}>
             {!!errors.afterSubmit && <Alert severity='error'>{errors.afterSubmit.message}</Alert>}
         
-        <RHFTextField name='email' label='Email address'/>
-        <RHFTextField name='password' label='Password' type={showPassword ? 'text' : 'password'}
-        InputProps={{endAdornment:(
-            <InputAdornment>
-            <IconButton onClick={()=>{
-                setShowPassword(!showPassword);
-            }}>
-                {showPassword ? <Eye/>: <EyeSlash/>}
-            </IconButton>
-            </InputAdornment>
-        )}}/>
+        {/* <RHFTextField name='user_id' label='user id'  /> */}
+        <RHFTextField name='user_name' label='user name' />
         </Stack>
-        <Stack alignItems={'flex-end'} sx={{my:2}}>
+        {/* <Stack alignItems={'flex-end'} sx={{my:2}}>
             <Link component={RouterLink} to='/auth/reset-password'
              variant='body2' color='inherit' underline='always'>Forgot Password?</Link>
-        </Stack>
-        <Button fullWidth color='inherit' size='large' type='submit' variant='contained'
+        </Stack> */}
+        <Button style={{ marginTop: '18px' }} fullWidth color='inherit' size='large' type='submit' variant='contained'
         sx={{bgcolor:'text.primary', color:(theme)=> theme.palette.mode === 'light' ?
          'common.white':'grey.800',
          '&:hover':{

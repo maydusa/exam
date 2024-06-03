@@ -6,12 +6,17 @@ import ThemeProvider from './theme';
 import ThemeSettings from './components/settings';
 
 function App() {
+
+  window.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+
   return (
     <ThemeProvider>
-      <ThemeSettings>
+      {/* <ThemeSettings>
         {" "}
         <Router />{" "}
-      </ThemeSettings>
+      </ThemeSettings> */}
+      <Router />
+      
     </ThemeProvider>
   );
 }
